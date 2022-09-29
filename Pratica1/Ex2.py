@@ -1,4 +1,4 @@
-maximum_number = 10
+maximum_number = 9999
 
 
 def isPrime(x):
@@ -33,6 +33,13 @@ def main():
                 # Caso a função isPrime retornar falso entao faz-se o seguinte
                 print('Number ' + str(i) + ' is not prime.')
 
+# Para fazer o exercicio 2.2 de numero menor a 10000
+# É preciso na janela de comando meter: 
+# python3 Ex2.py | grep "is prime" | grep "3" |  wc -l
+# Cada um dos comandos acima são sequenciais ou seja vai primeiro reproduzir o programa
+# De seguida vai ver os primos 
+# De seguida vai ver aqueles que tem os 3  
+# E no final....
 
 
 if __name__ == "__main__":
