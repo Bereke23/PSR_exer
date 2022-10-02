@@ -12,6 +12,7 @@ def isPrime(x):
         
          resultado = x % i         
          if resultado == 0:
+            # O módulo(%) retorna o resto de uma determinada operação, ou seja se o modulo for zero entao esse numero é divisivel por ele
             # Faz o print do divisor dos numeros nao primos, aparece acima
             # Para que na lista que estamos a dar print asseguir apareça o o numero 2 é necessario que a lista contenha mais  
             #do que o próprio elemento, nesse sentido se o unico divisor por causa do qual o 4 não é numero primo 
