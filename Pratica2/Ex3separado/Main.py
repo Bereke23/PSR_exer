@@ -15,12 +15,17 @@ def main():
     #maximum_number = 2 # maximum number to test.
     #O que esta libraria nos faz, é especificar um determinado argumento 
     parser = argparse.ArgumentParser(description='Test for PSR.')
-    parser.add_argument('--maximum_number', type=int, required= True ,
+    parser.add_argument('-mn','--maximum_number', type=int, required= True ,
                     help='The maximum number until witch we check if number is perfect ')
+    parser.add_argument('-v','--verbose', action='store_true' ,
+                    help='The maximum number until witch we check if number is perfect ')
+    # Este ultiomo tipo é uma variavel quando esta presente ela é true e quando não está é falsa
+
+
     # o Vars converte the arguments in to a special format
     args = vars(parser.parse_args())
     print(args)
-    maximum_number = args['maximum_number']
+    
 
 
 
@@ -29,9 +34,9 @@ def main():
 
 
 
-    print("Starting to compute perfect numbers up to " + str(maximum_number))
+    print("Starting to compute perfect numbers up to " + str(args['maximum_number']))
 
-    for number in range(2, maximum_number):
+    for number in range(2, args['maximum_number'] + 1):
         if isPerfect(number):
             print('Number ' + str(number) + ' is perfect.')
         else:
