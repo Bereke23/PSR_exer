@@ -21,7 +21,7 @@ def readAllUpTo(stop_char):
         for i in range (stop_char, 88):
             list.append(chr(i))
             if i == 88: 
-                return False
+               break
         
 
 
