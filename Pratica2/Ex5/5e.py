@@ -53,10 +53,11 @@ def countNumbersUpTo(stop_char):
         break
         # add code here to create a list of inputs
 
-    list_numbers = [input242 for  input242 in inputs if inputs.isnumeric()]
+    list_numbers = [input for  input in inputs if input.isnumeric() ]
     # Este acima é uma list comprehension e permite criar listas expeciais 
-    
-
+    print(list_numbers)
+    list_others = [input for  input in inputs if input is not numeric() ]
+    print(list_others)
 
 
 
