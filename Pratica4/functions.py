@@ -6,9 +6,16 @@ import time
 import math 
 from colorama import Fore, Back, Style
 import random
+from collections import namedtuple
+
+#Variaveis gerais usadas
 Tempo_maximo = 10
 init = time.time()
 fin = 0
+
+
+Inputs = namedtuple('Input', ['requested', 'received','duration'])
+
 
 def argumentosetrada():
     # Definição dos argumentos de entrada:
@@ -41,23 +48,29 @@ def teclainicial(numero_maximo, temporizador):
 
 def modofuncionamento(numero_maximo,temporizador):
     # Escolha do tipo do funcionamento:
+    letras_mostradas = []
+    letras_escolhidas = []
     if temporizador:
         inicio = time.time()
         intervalo = 0
         while intervalo < Tempo_maximo:
+            i1 = time.time()
             randomLowerLetter = chr(random.randint(ord('a'), ord('z')))
             print("Type letter " + randomLowerLetter)
+            
             tecla = readchar.readkey()
-
             if randomLowerLetter == tecla:
                 print('The key pressed ' + Fore.GREEN + tecla + Style.RESET_ALL)
             else:
                 print('The key pressed ' + Fore.RED+ tecla + Style.RESET_ALL)
-            leitura = readchar.readkey()
-            if leitura == '1':
+            if tecla == '1':
                 exit(0)
             fim = time.time()
             intervalo = fim - inicio
+            f1 = time.time()
+            inte1= f1 - i1
+            types = Inputs(randomLowerLetter, tecla,inte1)
+        print(types)
         print( "Current test duration " + "(" + str(intervalo)+ ")" + " exceeds maximum of 10")
         Terminiodeseccao()
     else:
@@ -65,13 +78,11 @@ def modofuncionamento(numero_maximo,temporizador):
             randomLowerLetter = chr(random.randint(ord('a'), ord('z')))
             print("Type letter " + randomLowerLetter)
             tecla = readchar.readkey()
-        
             if randomLowerLetter == tecla:
                 print('The key pressed ' + Fore.GREEN + str(tecla) + Style.RESET_ALL)
             else:
                 print('The key pressed ' + Fore.RED+ str(tecla) + Style.RESET_ALL)
-            leitura = readchar.readkey()
-            if leitura == '1' :
+            if tecla == '1' :
                 exit(0)
         Terminiodeseccao()
 
