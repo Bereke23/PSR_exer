@@ -76,6 +76,7 @@ def modofuncionamento(numero_maximo,temporizador):
         Terminiodeseccao()
     else:
         for letras in range(1,numero_maximo+1):
+            i1 = time.time()
             randomLowerLetter = chr(random.randint(ord('a'), ord('z')))
             print("Type letter " + randomLowerLetter)
             tecla = readchar.readkey()
@@ -83,8 +84,12 @@ def modofuncionamento(numero_maximo,temporizador):
                 print('The key pressed ' + Fore.GREEN + str(tecla) + Style.RESET_ALL)
             else:
                 print('The key pressed ' + Fore.RED+ str(tecla) + Style.RESET_ALL)
+            f1 = time.time()
+            inte1= f1 - i1
+            types.append(Inputs(randomLowerLetter, tecla,inte1))
             if tecla == chr(32) :
                 exit(0)
+        print(types)
         Terminiodeseccao()
 
 
