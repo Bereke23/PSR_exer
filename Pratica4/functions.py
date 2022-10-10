@@ -50,6 +50,7 @@ def modofuncionamento(numero_maximo,temporizador):
     # Escolha do tipo do funcionamento:
     letras_mostradas = []
     letras_escolhidas = []
+    types = []
     if temporizador:
         inicio = time.time()
         intervalo = 0
@@ -69,7 +70,7 @@ def modofuncionamento(numero_maximo,temporizador):
             intervalo = fim - inicio
             f1 = time.time()
             inte1= f1 - i1
-            types = Inputs(randomLowerLetter, tecla,inte1)
+            types.append(Inputs(randomLowerLetter, tecla,inte1)) 
         print(types)
         print( "Current test duration " + "(" + str(intervalo)+ ")" + " exceeds maximum of 10")
         Terminiodeseccao()
