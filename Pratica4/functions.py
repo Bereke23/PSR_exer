@@ -9,7 +9,7 @@ import random
 from collections import namedtuple
 
 #Variaveis gerais usadas
-Tempo_maximo = 10
+Tempo_maximo = 15
 init = time.time()
 fin = 0
 
@@ -72,7 +72,7 @@ def modofuncionamento(numero_maximo,temporizador):
             inte1= f1 - i1
             types.append(Inputs(randomLowerLetter, tecla,inte1)) 
         print(types)
-        print( "Current test duration " + "(" + str(intervalo)+ ")" + " exceeds maximum of 10")
+        print( "Current test duration " + "(" + str(intervalo)+ ")" + " exceeds maximum of "+ str(Tempo_maximo))
         Terminiodeseccao()
     else:
         for letras in range(1,numero_maximo+1):
