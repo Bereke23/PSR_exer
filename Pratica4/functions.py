@@ -63,7 +63,7 @@ def modofuncionamento(numero_maximo,temporizador):
                 print('The key pressed ' + Fore.GREEN + tecla + Style.RESET_ALL)
             else:
                 print('The key pressed ' + Fore.RED+ tecla + Style.RESET_ALL)
-            if tecla == '1':
+            if tecla == chr(32) :
                 exit(0)
             fim = time.time()
             intervalo = fim - inicio
@@ -82,7 +82,7 @@ def modofuncionamento(numero_maximo,temporizador):
                 print('The key pressed ' + Fore.GREEN + str(tecla) + Style.RESET_ALL)
             else:
                 print('The key pressed ' + Fore.RED+ str(tecla) + Style.RESET_ALL)
-            if tecla == '1' :
+            if tecla == chr(32) :
                 exit(0)
         Terminiodeseccao()
 
