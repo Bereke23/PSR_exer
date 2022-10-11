@@ -9,9 +9,10 @@ import random
 from collections import namedtuple
 
 #Variaveis gerais usadas
-Tempo_maximo = 15
+Tempo_maximo = 5
 init = time.time()
 fin = 0
+my_dict = {}
 
 
 Inputs = namedtuple('Input', ['requested', 'received','duration'])
@@ -29,6 +30,7 @@ def argumentosetrada():
     temporizador = args['use_time_mode']
     print(args)
     teclainicial(valor_max,temporizador)
+   
     
 
 def teclainicial(numero_maximo, temporizador):
@@ -41,6 +43,7 @@ def teclainicial(numero_maximo, temporizador):
     else:
         print("Test runnig up to " + str(numero_maximo) + " inputs" )
     print("Press any key to star the test")
+    my_dict['test_start'] = local_time
     key = readchar.readkey()
     if key is not Empty:
         modofuncionamento(numero_maximo,temporizador)
@@ -70,10 +73,12 @@ def modofuncionamento(numero_maximo,temporizador):
             f1 = time.time()
             inte1= f1 - i1
             types.append(Inputs(randomLowerLetter, tecla,inte1)) 
-        print(types)
+        #print(types)
         print( "Current test duration " + "(" + str(intervalo)+ ")" + " exceeds maximum of "+ str(Tempo_maximo))
-        Terminiodeseccao()
+        dicionario(types,intervalo)
     else:
+        inicio = time.time()
+        intervalo = 0
         for letras in range(1,numero_maximo+1):
             i1 = time.time()
             randomLowerLetter = chr(random.randint(ord('a'), ord('z')))
@@ -88,12 +93,19 @@ def modofuncionamento(numero_maximo,temporizador):
             types.append(Inputs(randomLowerLetter, tecla,inte1))
             if tecla == chr(32) :
                 exit(0)
-        print(types)
-        Terminiodeseccao()
+        fim = time.time()
+        intervalo = fim - inicio
+        #print(types)
+        dicionario(types,intervalo)
 
 
-def Terminiodeseccao():
-    fin = time.time()
-    Duraçao = fin - init
+def dicionario(types,intervalo):
+    seconds = time.time()
+    fim_tempo = time.ctime(seconds)
+    my_dict['test_duration'] =intervalo
+    my_dict['inputs'] = types
+    my_dict['test_end'] = fim_tempo
+    print(my_dict)
+
     #print( "Current test duration " + str(Duraçao)+ "s")
     print(Fore.BLUE + "Test finished!!" + Style.RESET_ALL)
