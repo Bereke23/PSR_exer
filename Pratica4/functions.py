@@ -67,7 +67,7 @@ def modofuncionamento(numero_maximo,temporizador):
             else:
                 print('The key pressed ' + Fore.RED+ tecla + Style.RESET_ALL)
             if tecla == chr(32) :
-                exit(0)
+                dicionario(types,intervalo)
             fim = time.time()
             intervalo = fim - inicio
             f1 = time.time()
@@ -92,7 +92,7 @@ def modofuncionamento(numero_maximo,temporizador):
             inte1= f1 - i1
             types.append(Inputs(randomLowerLetter, tecla,inte1))
             if tecla == chr(32) :
-                exit(0)
+                dicionario(types,intervalo)
         fim = time.time()
         intervalo = fim - inicio
         #print(types)
@@ -106,6 +106,7 @@ def dicionario(types,intervalo):
     my_dict['inputs'] = types
     my_dict['test_end'] = fim_tempo
     print(my_dict)
-
+    
     #print( "Current test duration " + str(Duraçao)+ "s")
     print(Fore.BLUE + "Test finished!!" + Style.RESET_ALL)
+    exit(0)
