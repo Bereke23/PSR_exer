@@ -58,7 +58,6 @@ def modofuncionamento(numero_maximo,temporizador):
             i1 = time.time()
             randomLowerLetter = chr(random.randint(ord('a'), ord('z')))
             print("Type letter " + randomLowerLetter)
-            
             tecla = readchar.readkey()
             if randomLowerLetter == tecla:
                 print('The key pressed ' + Fore.GREEN + tecla + Style.RESET_ALL)
