@@ -79,7 +79,6 @@ def modofuncionamento(numero_maximo,temporizador):
                 number_of_types +=1
                 dif2 = fi3 - i1 
                 type_miss_average_duration.append(dif2)
-            
             f1 = time.time()
             inte1= f1 - i1
             type_average_duration.append(inte1)
