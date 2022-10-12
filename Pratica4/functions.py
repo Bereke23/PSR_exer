@@ -7,6 +7,7 @@ import math
 from colorama import Fore, Back, Style
 import random
 from collections import namedtuple
+from pprint import pprint
 
 #Variaveis gerais usadas
 Tempo_maximo = 5
@@ -143,6 +144,6 @@ def dicionario(types,intervalo,type_average_duration,number_of_hits,number_of_ty
     my_dict['type_average_duration'] = type_averageduration
     my_dict['type_hit_average_duration'] = typehit_average_duration
     my_dict['type_miss_average_duration']= typemiss_average_duration
-    print(my_dict)
+    pprint(my_dict)
     print(Fore.BLUE + "Test finished!!" + Style.RESET_ALL)
     exit(0)
