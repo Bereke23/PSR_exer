@@ -37,14 +37,14 @@ def argumentosetrada():
 def teclainicial(numero_maximo, temporizador):
     # Definição da parte inicial do teste:
     seconds = time.time()
-    local_time = time.ctime(seconds)
-    print(Fore.BLUE + "PARI" + Style.RESET_ALL + " Typing Test, Grupo 6," + local_time + Style.RESET_ALL ) 
+    temponoinicio= time.ctime(seconds)
+    print(Fore.BLUE + "PARI" + Style.RESET_ALL + " Typing Test, Grupo 6," + temponoinicio + Style.RESET_ALL ) 
     if temporizador:
         print("Test runnig up to " + str(Tempo_maximo) + "s")
     else:
         print("Test runnig up to " + str(numero_maximo) + " inputs" )
     print("Press any key to star the test")
-    my_dict['test_start'] = local_time
+    my_dict['test_start'] = temponoinicio
     key = readchar.readkey()
     if key is not Empty:
         modofuncionamento(numero_maximo,temporizador)
@@ -123,6 +123,7 @@ def modofuncionamento(numero_maximo,temporizador):
 
 
 def dicionario(types,intervalo,type_average_duration,number_of_hits,number_of_types,type_hit_average_duration,type_miss_average_duration):
+    #Definição dos dicionarios
     segundos = time.time()
     fim_tempo = time.ctime(segundos)
     accuracy = number_of_hits/number_of_types
