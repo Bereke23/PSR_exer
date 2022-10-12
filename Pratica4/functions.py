@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import argparse
 from operator import truediv
 import readchar
@@ -9,7 +10,7 @@ from collections import namedtuple
 from pprint import pprint
 
 #Variaveis gerais usadas
-Tempo_maximo = 5
+
 init = time.time()
 fin = 0
 my_dict = {}
@@ -17,6 +18,7 @@ Inputs = namedtuple('Input', ['requested', 'received','duration'])
 
 
 def argumentosetrada():
+    Tempo_maximo = 5
     # Definição dos argumentos de entrada:
     parser = argparse.ArgumentParser(description='Modo de funcionamento')
     parser.add_argument('-utm','--use_time_mode', action='store_true' ,
@@ -26,15 +28,22 @@ def argumentosetrada():
     args = vars(parser.parse_args())
     valor_max = args['max_value'] # Numero maximo de inputs
     temporizador = args['use_time_mode'] # Modo tempo
-    if valor_max > 0: # caso o valor max seja 0 ou menor
+    #if valor_max > 0: # caso o valor max seja 0 ou menor
+     #   print(args)
+      #  teclainicial(valor_max,temporizador,Tempo_maximo)
+    if temporizador: 
         print(args)
-        teclainicial(valor_max,temporizador)
+        Tempo_maximo = valor_max
+        teclainicial(valor_max,temporizador,Tempo_maximo)
+    elif valor_max > 0:
+        print(args)
+        teclainicial(valor_max,temporizador,Tempo_maximo)
     print('Numero invalido de inputs tente outra vez')
     exit(0)
     
     
 
-def teclainicial(numero_maximo, temporizador):
+def teclainicial(numero_maximo, temporizador,Tempo_maximo):
     # Definição da parte inicial do teste:
     seconds = time.time()
     temponoinicio= time.ctime(seconds) # Tempo incio do teste
@@ -47,10 +56,10 @@ def teclainicial(numero_maximo, temporizador):
     my_dict['test_start'] = temponoinicio
     key = readchar.readkey()
     if key is not Empty: # O utilizador tem de carregar num caracter
-        modofuncionamento(numero_maximo,temporizador)
+        modofuncionamento(numero_maximo,temporizador,Tempo_maximo)
     
 
-def modofuncionamento(numero_maximo,temporizador):
+def modofuncionamento(numero_maximo,temporizador,Tempo_maximo):
     # Escolha do tipo do funcionamento:
     types = []
     type_average_duration = []
