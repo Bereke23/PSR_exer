@@ -134,8 +134,6 @@ def dicionario(types,intervalo,type_average_duration,number_of_hits,number_of_ty
         typemiss_average_duration = sum(type_miss_average_duration)/len(type_miss_average_duration)
     
     type_averageduration = sum(type_average_duration)/len(type_average_duration)
-        
-
     my_dict['test_end'] = fim_tempo
     my_dict['test_duration'] =intervalo
     my_dict['inputs'] = types
