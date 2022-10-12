@@ -24,9 +24,9 @@ def argumentosetrada():
     parser.add_argument('-mv','--max_value',type = int, required= True,
                     help='Max number of secs for time mode or maximum number os inputs mode.')
     args = vars(parser.parse_args())
-    valor_max = args['max_value']
-    temporizador = args['use_time_mode']
-    if valor_max > 0:
+    valor_max = args['max_value'] # Numero maximo de inputs
+    temporizador = args['use_time_mode'] # Modo tempo
+    if valor_max > 0: # caso o valor max seja 0 ou menor
         print(args)
         teclainicial(valor_max,temporizador)
     print('Numero invalido de inputs tente outra vez')
@@ -37,16 +37,16 @@ def argumentosetrada():
 def teclainicial(numero_maximo, temporizador):
     # Definição da parte inicial do teste:
     seconds = time.time()
-    temponoinicio= time.ctime(seconds)
+    temponoinicio= time.ctime(seconds) # Tempo incio do teste
     print(Fore.BLUE + "PARI" + Style.RESET_ALL + " Typing Test, Grupo 6," + temponoinicio + Style.RESET_ALL ) 
-    if temporizador:
+    if temporizador: 
         print("Test runnig up to " + str(Tempo_maximo) + "s")
     else:
         print("Test runnig up to " + str(numero_maximo) + " inputs" )
     print("Press any key to star the test")
     my_dict['test_start'] = temponoinicio
     key = readchar.readkey()
-    if key is not Empty:
+    if key is not Empty: # O utilizador tem de carregar num caracter
         modofuncionamento(numero_maximo,temporizador)
     
 
@@ -59,14 +59,18 @@ def modofuncionamento(numero_maximo,temporizador):
     type_hit_average_duration = []
     type_miss_average_duration = []
     if temporizador:
-        inicio = time.time()
-        intervalo = 0
-        while intervalo < Tempo_maximo:
+        inicio = time.time() 
+        Duraçaodoteste = 0
+        while Duraçaodoteste < Tempo_maximo:
+            # Modo de tempo maximo
+            # Ciclo corre enquanto o tempo for inferior ao tempo máximo
             i1 = time.time()
             randomLowerLetter = chr(random.randint(ord('a'), ord('z')))
+            # Impressao de letras minusculas random
             print("Type letter " + randomLowerLetter)
             tecla = readchar.readkey()
             if randomLowerLetter == tecla:
+                # caso o caracter metido seja igual ao random letter
                 fi2 = time.time()
                 print('The key pressed ' + Fore.GREEN + tecla + Style.RESET_ALL)
                 number_of_hits +=1
@@ -74,24 +78,27 @@ def modofuncionamento(numero_maximo,temporizador):
                 dif1 = fi2 - i1
                 type_hit_average_duration.append(dif1)
             else:
+                # caso o caracter metido seja difrente ao random letter
                 fi3 = time.time()
                 print('The key pressed ' + Fore.RED+ tecla + Style.RESET_ALL)
                 number_of_types +=1
                 dif2 = fi3 - i1 
                 type_miss_average_duration.append(dif2)
             f1 = time.time()
-            inte1= f1 - i1
+            inte1= f1 - i1 # tempo de cada ciclo
             type_average_duration.append(inte1)
             types.append(Inputs(randomLowerLetter, tecla,inte1)) 
             if tecla == chr(32) :
-                dicionario(types,intervalo,type_average_duration,number_of_hits,number_of_types,type_hit_average_duration,type_miss_average_duration)
+                # caso carregar no "ESPAÇO"
+                dicionario(types,Duraçaodoteste,type_average_duration,number_of_hits,number_of_types,type_hit_average_duration,type_miss_average_duration)
             fim = time.time()
-            intervalo = fim - inicio
-        print( "Current test duration " + "(" + str(intervalo)+ ")" + " exceeds maximum of "+ str(Tempo_maximo))
-        dicionario(types,intervalo,type_average_duration,number_of_hits,number_of_types,type_hit_average_duration,type_miss_average_duration)
+            Duraçaodoteste = fim - inicio # Duraçao do teste
+        print( "Current test duration " + "(" + str(Duraçaodoteste)+ ")" + " exceeds maximum of "+ str(Tempo_maximo))
+        dicionario(types,Duraçaodoteste,type_average_duration,number_of_hits,number_of_types,type_hit_average_duration,type_miss_average_duration)
     else:
+        # modo maximo de inputs
         inicio = time.time()
-        intervalo = 0
+        Duraçaodoteste = 0
         for letras in range(1,numero_maximo+1):
             i1 = time.time()
             randomLowerLetter = chr(random.randint(ord('a'), ord('z')))
@@ -115,11 +122,11 @@ def modofuncionamento(numero_maximo,temporizador):
             type_average_duration.append(inte1)
             types.append(Inputs(randomLowerLetter, tecla,inte1))
             if tecla == chr(32) :
-                dicionario(types,intervalo,type_average_duration,number_of_hits,number_of_types,type_hit_average_duration,type_miss_average_duration)
+                dicionario(types,Duraçaodoteste,type_average_duration,number_of_hits,number_of_types,type_hit_average_duration,type_miss_average_duration)
         fim = time.time()
-        intervalo = fim - inicio
-        print( "Current test duration " + "(" + str(intervalo)+ ")")
-        dicionario(types,intervalo,type_average_duration,number_of_hits,number_of_types,type_hit_average_duration,type_miss_average_duration)
+        Duraçaodoteste = fim - inicio
+        print( "Current test duration " + "(" + str(Duraçaodoteste)+ ")")
+        dicionario(types,Duraçaodoteste,type_average_duration,number_of_hits,number_of_types,type_hit_average_duration,type_miss_average_duration)
 
 
 def dicionario(types,intervalo,type_average_duration,number_of_hits,number_of_types,type_hit_average_duration,type_miss_average_duration):
