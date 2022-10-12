@@ -27,9 +27,12 @@ def argumentosetrada():
     args = vars(parser.parse_args())
     valor_max = args['max_value']
     temporizador = args['use_time_mode']
-    print(args)
-    teclainicial(valor_max,temporizador)
-   
+    if valor_max > 0:
+        print(args)
+        teclainicial(valor_max,temporizador)
+    print('Numero invalido de inputs tente outra vez')
+    exit(0)
+    
     
 
 def teclainicial(numero_maximo, temporizador):
@@ -128,12 +131,10 @@ def dicionario(types,intervalo,type_average_duration,number_of_hits,number_of_ty
         typehit_average_duration = 0
     else: 
         typehit_average_duration = sum(type_hit_average_duration)/len(type_hit_average_duration)
-    
     if sum(type_miss_average_duration) == 0:
         typemiss_average_duration = 0
     else:
         typemiss_average_duration = sum(type_miss_average_duration)/len(type_miss_average_duration)
-    
     type_averageduration = sum(type_average_duration)/len(type_average_duration)
     my_dict['test_end'] = fim_tempo
     my_dict['test_duration'] =intervalo
