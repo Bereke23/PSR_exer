@@ -13,8 +13,6 @@ Tempo_maximo = 5
 init = time.time()
 fin = 0
 my_dict = {}
-
-
 Inputs = namedtuple('Input', ['requested', 'received','duration'])
 
 
@@ -51,9 +49,12 @@ def teclainicial(numero_maximo, temporizador):
 
 def modofuncionamento(numero_maximo,temporizador):
     # Escolha do tipo do funcionamento:
-    letras_mostradas = []
-    letras_escolhidas = []
     types = []
+    type_average_duration = []
+    number_of_types = 0
+    number_of_hits = 0
+    type_hit_average_duration = []
+    type_miss_average_duration = []
     if temporizador:
         inicio = time.time()
         intervalo = 0
@@ -63,19 +64,28 @@ def modofuncionamento(numero_maximo,temporizador):
             print("Type letter " + randomLowerLetter)
             tecla = readchar.readkey()
             if randomLowerLetter == tecla:
+                fi2 = time.time()
                 print('The key pressed ' + Fore.GREEN + tecla + Style.RESET_ALL)
+                number_of_hits +=1
+                number_of_types +=1
+                dif1 = fi2 - i1
+                type_hit_average_duration.append(dif1)
             else:
+                fi3 = time.time()
                 print('The key pressed ' + Fore.RED+ tecla + Style.RESET_ALL)
+                number_of_types +=1
+                dif2 = fi3 - i1 
+                type_miss_average_duration.append(dif2)
             if tecla == chr(32) :
-                dicionario(types,intervalo)
+                dicionario(types,intervalo,type_average_duration,number_of_hits,number_of_types,type_hit_average_duration,type_miss_average_duration)
             fim = time.time()
             intervalo = fim - inicio
             f1 = time.time()
             inte1= f1 - i1
+            type_average_duration.append(inte1)
             types.append(Inputs(randomLowerLetter, tecla,inte1)) 
-        #print(types)
         print( "Current test duration " + "(" + str(intervalo)+ ")" + " exceeds maximum of "+ str(Tempo_maximo))
-        dicionario(types,intervalo)
+        dicionario(types,intervalo,type_average_duration,number_of_hits,number_of_types,type_hit_average_duration,type_miss_average_duration)
     else:
         inicio = time.time()
         intervalo = 0
@@ -85,28 +95,56 @@ def modofuncionamento(numero_maximo,temporizador):
             print("Type letter " + randomLowerLetter)
             tecla = readchar.readkey()
             if randomLowerLetter == tecla:
+                fi2 = time.time()
                 print('The key pressed ' + Fore.GREEN + str(tecla) + Style.RESET_ALL)
+                number_of_hits +=1
+                number_of_types +=1
+                dif1 = fi2 - i1
+                type_hit_average_duration.append(dif1)
             else:
+                fi3 = time.time()
                 print('The key pressed ' + Fore.RED+ str(tecla) + Style.RESET_ALL)
+                number_of_types +=1
+                dif2 =  fi3 - i1
+                type_miss_average_duration.append(dif2)
             f1 = time.time()
             inte1= f1 - i1
+            type_average_duration.append(inte1)
             types.append(Inputs(randomLowerLetter, tecla,inte1))
             if tecla == chr(32) :
-                dicionario(types,intervalo)
+                dicionario(types,intervalo,type_average_duration,number_of_hits,number_of_types,type_hit_average_duration,type_miss_average_duration)
         fim = time.time()
         intervalo = fim - inicio
-        #print(types)
-        dicionario(types,intervalo)
+        print( "Current test duration " + "(" + str(intervalo)+ ")")
+        dicionario(types,intervalo,type_average_duration,number_of_hits,number_of_types,type_hit_average_duration,type_miss_average_duration)
 
 
-def dicionario(types,intervalo):
-    seconds = time.time()
-    fim_tempo = time.ctime(seconds)
+def dicionario(types,intervalo,type_average_duration,number_of_hits,number_of_types,type_hit_average_duration,type_miss_average_duration):
+    segundos = time.time()
+    fim_tempo = time.ctime(segundos)
+    accuracy = number_of_hits/number_of_types
+    if sum(type_hit_average_duration) == 0:
+        typehit_average_duration = 0
+    else: 
+        typehit_average_duration = sum(type_hit_average_duration)/len(type_hit_average_duration)
+    
+    if sum(type_miss_average_duration) == 0:
+        typemiss_average_duration = 0
+    else:
+        typemiss_average_duration = sum(type_miss_average_duration)/len(type_miss_average_duration)
+    
+    type_averageduration = sum(type_average_duration)/len(type_average_duration)
+        
+
+    my_dict['test_end'] = fim_tempo
     my_dict['test_duration'] =intervalo
     my_dict['inputs'] = types
-    my_dict['test_end'] = fim_tempo
+    my_dict['number_of_types'] = number_of_types
+    my_dict['number_of_hits'] = number_of_hits
+    my_dict['accuracy'] = accuracy
+    my_dict['type_average_duration'] = type_averageduration
+    my_dict['type_hit_average_duration'] = typehit_average_duration
+    my_dict['type_miss_average_duration']= typemiss_average_duration
     print(my_dict)
-    
-    #print( "Current test duration " + str(Duraçao)+ "s")
     print(Fore.BLUE + "Test finished!!" + Style.RESET_ALL)
     exit(0)
