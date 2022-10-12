@@ -3,7 +3,6 @@ from operator import truediv
 import readchar
 from queue import Empty
 import time
-import math 
 from colorama import Fore, Back, Style
 import random
 from collections import namedtuple
