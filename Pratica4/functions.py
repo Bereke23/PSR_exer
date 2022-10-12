@@ -79,14 +79,15 @@ def modofuncionamento(numero_maximo,temporizador):
                 number_of_types +=1
                 dif2 = fi3 - i1 
                 type_miss_average_duration.append(dif2)
-            if tecla == chr(32) :
-                dicionario(types,intervalo,type_average_duration,number_of_hits,number_of_types,type_hit_average_duration,type_miss_average_duration)
-            fim = time.time()
-            intervalo = fim - inicio
+            
             f1 = time.time()
             inte1= f1 - i1
             type_average_duration.append(inte1)
             types.append(Inputs(randomLowerLetter, tecla,inte1)) 
+            if tecla == chr(32) :
+                dicionario(types,intervalo,type_average_duration,number_of_hits,number_of_types,type_hit_average_duration,type_miss_average_duration)
+            fim = time.time()
+            intervalo = fim - inicio
         print( "Current test duration " + "(" + str(intervalo)+ ")" + " exceeds maximum of "+ str(Tempo_maximo))
         dicionario(types,intervalo,type_average_duration,number_of_hits,number_of_types,type_hit_average_duration,type_miss_average_duration)
     else:
