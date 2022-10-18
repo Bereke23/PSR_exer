@@ -17,12 +17,12 @@ def main():
     #-------------
     # Processing 
     #-------------
-    lower_bound = np.array([0,50,0])
-    upper_bound = np.array([50,256,50])
+    lower_bound = np.array([30,150,80])
+    upper_bound = np.array([70,255,255])
     #masking the image using inRange() function
-    image_mask = cv2.inRange(image_rgb, lower_bound, upper_bound)
+    # image_mask = cv2.inRange(image_rgb, lower_bound, upper_bound)
     image_hsv = cv2.cvtColor(image_rgb, cv2.COLOR_BGR2HSV)
-    image_hsv_mask = cv2.inRange(image_hsv,upper_bound,lower_bound)
+    image_hsv_mask = cv2.inRange(image_hsv,lower_bound, upper_bound)
 
     #-------------
     # Visualization 
