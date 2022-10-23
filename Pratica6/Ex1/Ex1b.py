@@ -33,6 +33,7 @@ def main():
     #-------------
     center_coordinates = (centerw, centerh)
     image = cv2.circle(image, center_coordinates, radius, color_circle, thickness)
+    # As cordenadas do texto, tem como referencia o canto inferior da primeira caracter da string
     org = (centerw - 30,centerh)
     image = cv2.putText(image, 'PSR', org, font,fontScale, color_letras, thickness, cv2.LINE_AA)
     #-------------
