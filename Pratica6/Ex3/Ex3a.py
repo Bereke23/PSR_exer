@@ -33,7 +33,7 @@ def main():
             minSize=(30, 30)
         )
         for (x, y, w, h) in faces:
-            verde = cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), -2).copy()
+            verde = cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2).copy()
         for (x, y, w, h) in faces:
             dst = cv2.addWeighted(img, 0.1, verde, 0.5, 0.0)
         
