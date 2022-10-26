@@ -46,12 +46,12 @@ def desenhar(event,x,y,flags,userdata):
             drawing = True
             del xs[:]
             del ys[:]
-            c= cv2.waitKey(0)
-            if c == 98:
+            c= cv2.waitKey(0) 
+            if c == 98: # Red
                 cor = (250,0,0)
-            if c == 103:
+            if c == 103: # Green
                 cor = (0,250,0)
-            if c == 114:
+            if c == 114: # Blue
                 cor = (0,0,250)
 
     if event == cv2.EVENT_MOUSEMOVE:
