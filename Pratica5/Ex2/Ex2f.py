@@ -35,8 +35,7 @@ def main():
     r[image_mask] = 255 # defenir como branco
 
     image_rgb = cv2.merge((b,g,r))
-
-
+    
     #-------------
     # Visualization 
     #-------------
