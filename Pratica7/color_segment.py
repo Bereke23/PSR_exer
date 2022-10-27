@@ -5,59 +5,53 @@ import json
 
 
 def fall(x):
-    print(x)
+    #print(x)
+    pass
 
 
 def main():
     # initial setup
     team = {}
     alpha_slider_max = 255
-    a = 10
-    b = 50
-    c = 50
-    d = 255
-    e = 25
-    f = 255
+
     capture = cv2.VideoCapture(0)
     window_original = 'Janela de video real'
-    window_segment = 'Janela de parametrização'
+    window_segment = 'Janela de parametrizacao'
     cv2.namedWindow(window_original,cv2.WINDOW_AUTOSIZE)
-    while True:
-        ret, image_rgb = capture.read()  # get an image from the camera
+    cv2.namedWindow(window_segment,cv2.WINDOW_AUTOSIZE)
+    trachbaRmin = 'Rmin x %d' % alpha_slider_max
+    trachbaRmax = 'Rmax x %d' % alpha_slider_max   
+    trachbaGmin = 'Gmin x %d' % alpha_slider_max   
+    trachbaGmax = 'Gmax x %d' % alpha_slider_max  
+    trachbaBmin = 'Bmin x %d' % alpha_slider_max 
+    trachbaBmax = 'Bmax x %d' % alpha_slider_max 
 
-        trachbaRmin = 'Rmin x %d' % alpha_slider_max
-        trachbaRmax = 'Rmax x %d' % alpha_slider_max   
-        trachbaGmin = 'Gmin x %d' % alpha_slider_max   
-        trachbaGmax = 'Gmax x %d' % alpha_slider_max  
-        trachbaBmin = 'Bmin x %d' % alpha_slider_max 
-        trachbaBmax = 'Bmax x %d' % alpha_slider_max  
-        if ret:
-            # 6 trackbars
-            cv2.createTrackbar(trachbaRmin, window_segment , 0, alpha_slider_max, fall)
-            cv2.createTrackbar(trachbaRmax, window_segment , 0, alpha_slider_max, fall)
-            cv2.createTrackbar(trachbaGmin, window_segment , 0, alpha_slider_max, fall)
-            cv2.createTrackbar(trachbaGmax, window_segment , 0, alpha_slider_max, fall)
-            cv2.createTrackbar(trachbaBmin, window_segment , 0, alpha_slider_max, fall)
-            cv2.createTrackbar(trachbaBmax, window_segment , 0, alpha_slider_max, fall)
-             # add code to show acquired image
-            
-            if int(cv2.getTrackbarPos(trachbaRmin, window_segment)) > 0:
-                a = int(cv2.getTrackbarPos(trachbaRmin, window_segment))
-                b = int(cv2.getTrackbarPos(trachbaRmax, window_segment))
-                c = int(cv2.getTrackbarPos(trachbaGmin, window_segment))
-                d = int(cv2.getTrackbarPos(trachbaGmax, window_segment))
-                e = int(cv2.getTrackbarPos(trachbaBmin, window_segment))
-                f = int(cv2.getTrackbarPos(trachbaBmax, window_segment))
+    cv2.createTrackbar(trachbaRmin, window_segment , 0, alpha_slider_max, fall)
+    cv2.createTrackbar(trachbaRmax, window_segment , 255, alpha_slider_max, fall)
+    cv2.createTrackbar(trachbaGmin, window_segment , 0, alpha_slider_max, fall)
+    cv2.createTrackbar(trachbaGmax, window_segment , 255, alpha_slider_max, fall)
+    cv2.createTrackbar(trachbaBmin, window_segment , 0, alpha_slider_max, fall)
+    cv2.createTrackbar(trachbaBmax, window_segment , 255, alpha_slider_max, fall)
+    while True:
+        _, image_rgb = capture.read()  # get an image from the camera
+ 
+         # add code to show acquired image
+        Rmin = int(cv2.getTrackbarPos(trachbaRmin, window_segment))
+        Rmax = int(cv2.getTrackbarPos(trachbaRmax, window_segment))
+        Gmin = int(cv2.getTrackbarPos(trachbaGmin, window_segment))
+        Gmax = int(cv2.getTrackbarPos(trachbaGmax, window_segment))
+        Bmin = int(cv2.getTrackbarPos(trachbaBmin, window_segment))
+        Bmax = int(cv2.getTrackbarPos(trachbaBmax, window_segment))
+
 
             #masking the image using inRange() function
-            image_hsv = cv2.cvtColor(image_rgb, cv2.COLOR_BGR2HSV)
-            image_hsv_mask = cv2.inRange(image_hsv,(a, c, e), (b, d, f))
+        image_mask = cv2.inRange(image_rgb,(Rmin,Gmin,Bmin), (Rmax,Gmax,Bmax))
         
         cv2.imshow(window_original,image_rgb)
-        cv2.imshow(window_segment,image_hsv_mask )
+        cv2.imshow(window_segment,image_mask)
         k = cv2.waitKey(1)
         if k == ord('w'):
-           dictionary = { "limits":{"B":{ "max":f ,"min": e }, "G":{ "max":d,"min": c }, "R":{ "max":b,"min": a } }}
+           dictionary = { "limits":{"B":{ "max": Bmax ,"min":  Bmin}, "G":{ "max":Gmax,"min": Gmin }, "R":{ "max":Rmax,"min": Rmin } }}
            with open("limits.json", "w") as outfile:
             json.dump(dictionary, outfile)
         if k == ord('q'):
@@ -66,8 +60,10 @@ def main():
     
         # add code to wait for a key press
     capture.release()
-    cv2.destroyAllWindows()
+    cv2.waitKey(0)
 
     
 if __name__ == '__main__':
     main()
+
+
