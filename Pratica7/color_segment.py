@@ -1,53 +1,66 @@
 #!/usr/bin/env python3
-from ast import Pass
 import cv2
 import numpy as np
-alpha_slider_max = 255
+import json
 
 
-def Rmin():
-    Pass
-def Rmax():
-    Pass
-def Gmin():
-    Pass
-def Gmax():
-    Pass
-def Bmin():
-    Pass
-def Bmax():
-    Pass
+def fall(x):
+    print(x)
 
 
 def main():
     # initial setup
+    team = {}
+    alpha_slider_max = 255
+    a = 10
+    b = 50
+    c = 50
+    d = 255
+    e = 25
+    f = 255
     capture = cv2.VideoCapture(0)
     window_original = 'Janela de video real'
     window_segment = 'Janela de parametrização'
     cv2.namedWindow(window_original,cv2.WINDOW_AUTOSIZE)
-    trackbar_name = 'Alpha x %d' % alpha_slider_max
     while True:
         ret, image_rgb = capture.read()  # get an image from the camera
 
+        trachbaRmin = 'Rmin x %d' % alpha_slider_max
+        trachbaRmax = 'Rmax x %d' % alpha_slider_max   
+        trachbaGmin = 'Gmin x %d' % alpha_slider_max   
+        trachbaGmax = 'Gmax x %d' % alpha_slider_max  
+        trachbaBmin = 'Bmin x %d' % alpha_slider_max 
+        trachbaBmax = 'Bmax x %d' % alpha_slider_max  
         if ret:
+            # 6 trackbars
+            cv2.createTrackbar(trachbaRmin, window_segment , 0, alpha_slider_max, fall)
+            cv2.createTrackbar(trachbaRmax, window_segment , 0, alpha_slider_max, fall)
+            cv2.createTrackbar(trachbaGmin, window_segment , 0, alpha_slider_max, fall)
+            cv2.createTrackbar(trachbaGmax, window_segment , 0, alpha_slider_max, fall)
+            cv2.createTrackbar(trachbaBmin, window_segment , 0, alpha_slider_max, fall)
+            cv2.createTrackbar(trachbaBmax, window_segment , 0, alpha_slider_max, fall)
              # add code to show acquired image
-            cv2.createTrackbar('Rmin ( %d' % alpha_slider_max + ')', window_segment , 0, alpha_slider_max, Rmin)
-            cv2.createTrackbar('Rmax ( %d' % alpha_slider_max  + ')', window_segment , 0, alpha_slider_max, Rmax)
-            cv2.createTrackbar('Gmin ( %d' % alpha_slider_max  + ')', window_segment , 0, alpha_slider_max, Gmin)
-            cv2.createTrackbar('Gmax ( %d' % alpha_slider_max  + ')', window_segment , 0, alpha_slider_max, Gmax)
-            cv2.createTrackbar('Bmin ( %d' % alpha_slider_max  + ')', window_segment , 0, alpha_slider_max, Bmin)
-            cv2.createTrackbar('Bmax ( %d' % alpha_slider_max  + ')', window_segment , 0, alpha_slider_max, Bmax)
-        
-            lower_bound = np.array([10, 100, 20])
-            upper_bound = np.array([25, 255, 255])
+            
+            if int(cv2.getTrackbarPos(trachbaRmin, window_segment)) > 0:
+                a = int(cv2.getTrackbarPos(trachbaRmin, window_segment))
+                b = int(cv2.getTrackbarPos(trachbaRmax, window_segment))
+                c = int(cv2.getTrackbarPos(trachbaGmin, window_segment))
+                d = int(cv2.getTrackbarPos(trachbaGmax, window_segment))
+                e = int(cv2.getTrackbarPos(trachbaBmin, window_segment))
+                f = int(cv2.getTrackbarPos(trachbaBmax, window_segment))
+
             #masking the image using inRange() function
             image_hsv = cv2.cvtColor(image_rgb, cv2.COLOR_BGR2HSV)
-            image_hsv_mask = cv2.inRange(image_hsv,lower_bound, upper_bound)
+            image_hsv_mask = cv2.inRange(image_hsv,(a, c, e), (b, d, f))
         
         cv2.imshow(window_original,image_rgb)
         cv2.imshow(window_segment,image_hsv_mask )
-
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        k = cv2.waitKey(1)
+        if k == ord('w'):
+           dictionary = { "limits":{"B":{ "max":f ,"min": e }, "G":{ "max":d,"min": c }, "R":{ "max":b,"min": a } }}
+           with open("limits.json", "w") as outfile:
+            json.dump(dictionary, outfile)
+        if k == ord('q'):
             break
 
     
