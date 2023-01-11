@@ -1,0 +1,2 @@
+ roslaunch robutler_bringup gazebo.launch -> começa o gazebo
+ roslaunch robutler_bringup bringup.launch -> aranca o rvis e comanda o robo
